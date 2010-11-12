@@ -32,7 +32,7 @@ class FacebookController extends ApplicationController
 				$queryStr = preg_replace("/{$actionUrl}/", '', $url);
 				$parts = explode('/',$queryStr);
 
-				if ((!in_array('ajax',$parts)) && ($action != 'goodbye'))
+				if (!in_array('ajax',$parts))
 				{
 					echo '<fb:redirect url="'.$this->fb->getLoginUrl(array('req_perms'=>'publish_stream,user_likes','next'=>FB_APP_URL,'cancel_url'=>FB_CANCEL_URL)).'" />';
 				}

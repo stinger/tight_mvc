@@ -43,16 +43,6 @@ class FacebookController extends ApplicationController
 				{
 					$this->fbSession = $this->fb->getSession();
 					$this->fbUID = $this->fb->getUser();
-
-					$likes = $this->fb->api('/me/likes');
-					$ok = false;
-					foreach ($likes['data'] as $like)
-					{
-						if ($like['id'] == '20988159336')
-						{
-							$ok = true;
-						}
-					}
 				}
 				catch (Exception $e)
 				{

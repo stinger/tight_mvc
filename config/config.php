@@ -20,4 +20,5 @@ define('FB_API_KEY', '');
 define('FB_SECRET', '');
 define('FB_APP_ID','');
 // application URL with trailing slash
-define('FB_APP_URL','http://apps.facebook.com/');
+define('FB_APP_URL','http://apps.facebook.com/your_app_name/');
+define('FB_CANCEL_URL','http://apps.facebook.com/your_app_name/?url=/index/goodbye');

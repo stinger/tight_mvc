@@ -34,7 +34,7 @@ class FacebookController extends ApplicationController
 
 				if ((!in_array('ajax',$parts)) && ($action != 'goodbye'))
 				{
-					echo '<fb:redirect url="'.$this->fb->getLoginUrl(array('req_perms'=>'publish_stream,user_likes','next'=>FB_APP_URL,'cancel_url'=>FB_APP_URL.'?url=/welcome/goodbye')).'" />';
+					echo '<fb:redirect url="'.$this->fb->getLoginUrl(array('req_perms'=>'publish_stream,user_likes','next'=>FB_APP_URL,'cancel_url'=>FB_CANCEL_URL)).'" />';
 				}
 			}
 			else
@@ -46,7 +46,7 @@ class FacebookController extends ApplicationController
 				}
 				catch (Exception $e)
 				{
-					echo '<fb:redirect url="'.$this->fb->getLoginUrl(array('req_perms'=>'publish_stream,user_likes','next'=>FB_APP_URL,'cancel_url'=>FB_APP_URL.'?url=/welcome/goodbye')).'" />';
+					echo '<fb:redirect url="'.$this->fb->getLoginUrl(array('req_perms'=>'publish_stream,user_likes','next'=>FB_APP_URL,'cancel_url'=>FB_CANCEL_URL)).'" />';
 				}
 			}
 		}

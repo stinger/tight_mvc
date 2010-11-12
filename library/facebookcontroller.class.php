@@ -43,6 +43,7 @@ class FacebookController extends ApplicationController
 				{
 					$this->fbSession = $this->fb->getSession();
 					$this->fbUID = $this->fb->getUser();
+					$this->fb->api('/me');
 				}
 				catch (Exception $e)
 				{

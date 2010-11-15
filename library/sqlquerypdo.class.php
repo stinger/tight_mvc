@@ -436,7 +436,6 @@ class SQLQueryPDO {
 
 				$query = 'INSERT INTO '.$this->_table.' ('.$fields.') VALUES ('.$values.')';
 			}
-			echo $query;
 			$this->_result = $this->_dbHandle->prepare($query);
 			$this->_result->execute();
 			$this->clear();

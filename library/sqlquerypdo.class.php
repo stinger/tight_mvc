@@ -51,6 +51,7 @@ class SQLQueryPDO {
 	{
 		if ($this->_dbHandle !== NULL)
 		{
+			
 			array_push($this->_extraConditions, '`'.$this->_model.'`.`'.$field.'` '.$compare_sign.' '.$this->_dbHandle->quote($value));
 		}
 		return $this;
@@ -82,7 +83,7 @@ class SQLQueryPDO {
 	{
 		if ($this->_dbHandle !== NULL)
 		{
-			$this->_extraConditions .= '`'.$this->_model.'`.`'.$field.'` LIKE \'%'.$this->_dbHandle->quote($value).'%\' AND ';
+			array_push($this->_extraConditions, '`'.$this->_model.'`.`'.$field.'` LIKE \'%'.$this->_dbHandle->quote($value).'%\'');
 		}
 		return $this;
 	}
@@ -458,13 +459,12 @@ class SQLQueryPDO {
 			$this->$field = null;
 		}
 
-		$this->_orderby = null;
-		$this->_extraConditions = null;
+		$this->_extraConditions = array();
+		$this->_orderConditions = array();
 		$this->_hO = null;
 		$this->_hM = null;
 		$this->_hMABTM = null;
 		$this->_page = null;
-		$this->_order = null;
 	}
 
 	/** Pagination Count **/

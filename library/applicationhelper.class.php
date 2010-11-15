@@ -22,17 +22,13 @@ class ApplicationHelper
 		return stripslashes(strip_tags($data));
 	}
 
-	function link($text,$path,$prompt = null,$confirmMessage = "Are you sure?") {
+	function link($text,$path) {
 		$path = str_replace(' ','-',$path);
 		if (CURRENT_MODULE)
 		{
 			$path = CURRENT_MODULE . '/' . $path;
 		}
-		if ($prompt) {
-			$data = '<a href="javascript:void(0);" onclick="javascript:jumpTo(\''.BASE_PATH.'/'.$path.'\',\''.$confirmMessage.'\')">'.$text.'</a>';
-		} else {
-			$data = '<a href="'.BASE_PATH.'/'.$path.'">'.$text.'</a>';
-		}
+		$data = '<a href="'.BASE_PATH.'/'.$path.'">'.$text.'</a>';
 		return $data;
 	}
 

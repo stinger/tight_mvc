@@ -98,7 +98,7 @@ function call_hook()
 		$urlArray = array();
 		$urlArray = explode("/",$url);
 		$module = $urlArray[0];
-		if ((strtolower($module) != 'default') && (!is_dir(APPLICATION_BASE . DIRECTORY_SEPARATOR . 'application' . DIRECTORY_SEPARATOR. $module)))
+		if ((strtolower($module) != $default['module']) && (!is_dir(APPLICATION_BASE . DIRECTORY_SEPARATOR . 'application' . DIRECTORY_SEPARATOR. $module)))
 		{
 			$module = NULL;
 		}

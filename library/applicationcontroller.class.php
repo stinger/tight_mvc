@@ -7,8 +7,8 @@ class ApplicationController
 	protected $_action;
 	protected $_template;
 
-	public $doNotRenderHeader;
-	public $render;
+	private $disableLayout;
+	private $render;
 
 	function __construct($controller, $action, $module='default')
 	{
@@ -38,7 +38,7 @@ class ApplicationController
 
 
 		$this->render = 1;
-		$this->doNotRenderHeader = 0;
+		$this->disableLayout = 0;
 	}
 
 	function set_render($render)
@@ -46,27 +46,36 @@ class ApplicationController
 		$this->render = $render;
 	}
 
+	function disable_layout()
+	{
+		$this->disableLayout = 1;
+		return $this;
+	}
+
 	function set($name,$value)
 	{
 		$this->_template->set($name,$value);
+		return $this;
 	}
 
 	function layout_as($layout)
 	{
 		$this->_template->set_layout($layout);
+		return $this;
 	}
 
 	function render($controller, $action)
 	{
-		$this->_template->render($this->doNotRenderHeader,$controller, $action);
+		$this->_template->render($this->disableLayout,$controller, $action);
 		$this->set_render(0);
+		return $this;
 	}
 
 	function __destruct()
 	{
 		if ($this->render)
 		{
-			$this->_template->render($this->doNotRenderHeader);
+			$this->_template->render($this->disableLayout);
 		}
 	}
 		

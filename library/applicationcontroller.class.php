@@ -10,10 +10,6 @@ class ApplicationController
 	public $doNotRenderHeader;
 	public $render;
 
-	static function render($render){
-		$this->render = $render;
-	}
-
 	function __construct($controller, $action, $module='default')
 	{
 		global $inflect;
@@ -45,6 +41,11 @@ class ApplicationController
 		$this->doNotRenderHeader = 0;
 	}
 
+	function set_render($render)
+	{
+		$this->render = $render;
+	}
+
 	function set($name,$value)
 	{
 		$this->_template->set($name,$value);
@@ -53,6 +54,12 @@ class ApplicationController
 	function layout_as($layout)
 	{
 		$this->_template->set_layout($layout);
+	}
+
+	function render($controller, $action)
+	{
+		$this->_template->render($this->doNotRenderHeader,$controller, $action);
+		$this->set_render(0);
 	}
 
 	function __destruct()

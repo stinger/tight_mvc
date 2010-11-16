@@ -49,18 +49,21 @@ class Template {
 
 	/** Display Template **/
 	
-	function render($doNotRenderHeader = 0) {
+	function render($doNotRenderHeader = 0, $controller = NULL, $action = NULL)
+	{
 		extract($this->variables);
+		$controller = ($controller !== NULL) ? $controller : $this->_controller;
+		$action = ($action !== NULL) ? $action : $this->_action;
 
-		if (file_exists(MODULE_PATH . 'views' . DIRECTORY_SEPARATOR . $this->_controller . DIRECTORY_SEPARATOR . $this->_action . '.php')) {
-			$this->content = $this->get_view (MODULE_PATH . 'views' . DIRECTORY_SEPARATOR . $this->_controller . DIRECTORY_SEPARATOR . $this->_action . '.php');
+		if (file_exists(MODULE_PATH . 'views' . DIRECTORY_SEPARATOR . $controller . DIRECTORY_SEPARATOR . $action . '.php')) {
+			$this->content = $this->get_view (MODULE_PATH . 'views' . DIRECTORY_SEPARATOR . $controller . DIRECTORY_SEPARATOR . $action . '.php');
 		}
 
 		if ($doNotRenderHeader == 0)
 		{
 			if ($this->_layout === NULL)
 			{
-				$this->_layout = $this->_controller;
+				$this->_layout = $controller;
 			}
 			if (file_exists(MODULE_PATH . 'views'. DIRECTORY_SEPARATOR . 'layouts' . DIRECTORY_SEPARATOR . $this->_layout . '.php')) {
 				include (MODULE_PATH . 'views'. DIRECTORY_SEPARATOR . 'layouts' . DIRECTORY_SEPARATOR . $this->_layout . '.php');
@@ -72,10 +75,6 @@ class Template {
 		{
 			echo $this->content;
 		}
-
-
-			
-
-    }
+  }
 
 }

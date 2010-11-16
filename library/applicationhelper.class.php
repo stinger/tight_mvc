@@ -2,63 +2,74 @@
 class ApplicationHelper
 {
 
-	function shorten_urls($data)
+	function sanitize($data)
 	{
-		$data = preg_replace_callback('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', array(get_class($this), '_fetch_tiny_url'), $data);
-		return $data;
-	}
-
-	private function _fetch_tiny_url($url) {
-		$ch = curl_init();
-		$timeout = 5;
-		curl_setopt($ch,CURLOPT_URL,'http://tinyurl.com/api-create.php?url='.$url[0]);
-		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
-		$data = curl_exec($ch);
-		curl_close($ch);
-		return $data;
-	}
-
-	function sanitize($data) {
 		return stripslashes(strip_tags($data));
 	}
 
-	function link($text, $path, $class = null) {
+	function link($text, $path, $class = null)
+	{
 		$path = str_replace(' ','-',$path);
 		if (CURRENT_MODULE)
 		{
 			$path = CURRENT_MODULE . '/' . $path;
 		}
-
 		$data = '<a href="'.BASE_PATH.'/'.$path.'" class="'.$class.'">'.$text.'</a>';
-
 		return $data;
 	}
 
-	function doctype($doctype=null){
-		switch($doctype){
-			case 'HTML5': $type = '<!doctype html>'; break;
-			case 'XHTML11': $type = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">'; break;
-			case 'XHTML1_STRICT': $type='<?xml version="1.0" encoding="UTF-8"?>'."\n".'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'; break;
-			case 'XHTML1_TRANSITIONAL': $type = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'; break;
-			case 'XHTML1_FRAMESET': $type='<?xml version="1.0" encoding="UTF-8"?>'."\n".'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">'; break;
-			case 'XHTML1_BASIC': $type= '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">'; break;
-			case 'HTML4_STRICT': $type = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">'; break;
-			case 'HTML4_TRANSITIONAL': $type = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'; break;
-			case 'HTML4_FRAMESET': $type = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">'; break;
-			case 'HTML32': $type = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">'; break;
-			case 'HTML20': $type = '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">'; break;
-			default: $type = '<!doctype html>'; break;
+	function doctype($doctype = NULL)
+	{
+		switch($doctype)
+		{
+			case 'HTML5':
+				$type = '<!doctype html>';
+			break;
+			case 'XHTML11':
+				$type = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">';
+			break;
+			case 'XHTML1_STRICT':
+				$type='<?xml version="1.0" encoding="UTF-8"?>'."\n".'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
+			break;
+			case 'XHTML1_TRANSITIONAL':
+				$type = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+			break;
+			case 'XHTML1_FRAMESET':
+				$type='<?xml version="1.0" encoding="UTF-8"?>'."\n".'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">';
+			break;
+			case 'XHTML1_BASIC':
+				$type= '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">';
+			break;
+			case 'HTML4_STRICT':
+				$type = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
+			break;
+			case 'HTML4_TRANSITIONAL':
+				$type = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
+			break;
+			case 'HTML4_FRAMESET':
+				$type = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">';
+			break;
+			case 'HTML32':
+				$type = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">';
+			break;
+			case 'HTML20':
+				$type = '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">';
+			break;
+			default:
+				$type = '<!doctype html>';
+			break;
 		}
 		return $type."\n";
 	}
 
-	function include_js($fileName) {
+	function include_js($fileName)
+	{
 		$data = '<script src="'.BASE_PATH.'/js/'.$fileName.'.js"></script>';
 		return $data."\n";
 	}
 
-	function include_css($fileName,$media='screen') {
+	function include_css($fileName,$media='screen')
+	{
 		$data = '<link rel="stylesheet" href="'.BASE_PATH.'/css/'.$fileName.'.css" media="'.$media.'"/>';
 		return $data."\n";
 	}
@@ -74,5 +85,4 @@ class ApplicationHelper
 	{
 		return strtolower(preg_replace(array('/[^a-zA-Z0-9 -]/', '/[ -]+/', '/^-|-$/'), array('', '-', ''), $this->remove_accent($str)));
 	}
-
 }

@@ -2,7 +2,8 @@
 class ApplicationHelper
 {
 
-	function shorten_urls($data) {
+	function shorten_urls($data)
+	{
 		$data = preg_replace_callback('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', array(get_class($this), '_fetch_tiny_url'), $data);
 		return $data;
 	}
@@ -15,20 +16,22 @@ class ApplicationHelper
 		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
 		$data = curl_exec($ch);
 		curl_close($ch);
-		return '<a href="'.$data.'" target = "_blank" >'.$data.'</a>';
+		return $data;
 	}
 
 	function sanitize($data) {
 		return stripslashes(strip_tags($data));
 	}
 
-	function link($text,$path) {
+	function link($text, $path, $class = null) {
 		$path = str_replace(' ','-',$path);
 		if (CURRENT_MODULE)
 		{
 			$path = CURRENT_MODULE . '/' . $path;
 		}
-		$data = '<a href="'.BASE_PATH.'/'.$path.'">'.$text.'</a>';
+
+		$data = '<a href="'.BASE_PATH.'/'.$path.'" class="'.$class.'">'.$text.'</a>';
+
 		return $data;
 	}
 
@@ -40,12 +43,12 @@ class ApplicationHelper
 		return $type."\n";
 	}
 
-	function includeJs($fileName) {
+	function include_js($fileName) {
 		$data = '<script src="'.BASE_PATH.'/js/'.$fileName.'.js"></script>';
 		return $data."\n";
 	}
 
-	function includeCss($fileName,$media='screen') {
+	function include_css($fileName,$media='screen') {
 		$data = '<link rel="stylesheet" href="'.BASE_PATH.'/css/'.$fileName.'.css" media="'.$media.'"/>';
 		return $data."\n";
 	}

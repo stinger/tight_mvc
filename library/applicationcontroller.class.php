@@ -1,7 +1,6 @@
 <?php
 class ApplicationController
 {
-
 	protected $_module;
 	protected $_controller;
 	protected $_action;

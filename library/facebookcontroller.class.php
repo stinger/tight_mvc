@@ -4,6 +4,7 @@ class FacebookController extends ApplicationController
 	public $fb = null;
 	public $fbUID = null;
 	public $fbSession = null;
+	public $currentUser = null;
 
 	public $render;
 
@@ -43,7 +44,7 @@ class FacebookController extends ApplicationController
 				{
 					$this->fbSession = $this->fb->getSession();
 					$this->fbUID = $this->fb->getUser();
-					$this->fb->api('/me');
+					$this->currentUser = $this->fb->api('/me');
 				}
 				catch (Exception $e)
 				{

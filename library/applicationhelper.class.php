@@ -2,6 +2,12 @@
 class ApplicationHelper
 {
 
+	function pluralize($count, $term)
+	{
+		global $inflect;
+		return $inflect->pluralize_if($count, $term);
+	}
+
 	function sanitize($data)
 	{
 		return stripslashes(strip_tags($data));

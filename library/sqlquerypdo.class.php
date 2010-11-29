@@ -331,24 +331,46 @@ class SQLQueryPDO {
 			$field = array();
 			$tempResults = array();
 
-			if(substr_count(strtoupper($query),"SELECT")>0) {
-				if ($this->_result->rowCount() > 0) {
+			if ($this->_result->rowCount() > 0)
+			{
+				if(substr_count(strtoupper($query),"SELECT") > 0)
+				{
 					$numOfFields =$this->_result->columnCount();
-					for ($i = 0; $i < $numOfFields; ++$i) {
+					for ($i = 0; $i < $numOfFields; ++$i)
+					{
 						$columnData = $this->_result->getColumnMeta($i);
 						array_push($table,$columnData['table']);
 						array_push($field,$columnData['name']);
 					}
-						while ($row = $this->_result->fetch(PDO::FETCH_BOTH)) {
-							for ($i = 0;$i < $numOfFields; ++$i) {
-								$table[$i] = ucfirst($inflect->singularize($table[$i]));
-								$tempResults[$table[$i]][$field[$i]] = $row[$i];
-							}
-							array_push($result,$tempResults);
+					while ($row = $this->_result->fetch(PDO::FETCH_BOTH))
+					{
+						for ($i = 0;$i < $numOfFields; ++$i)
+						{
+							$table[$i] = ucfirst($inflect->singularize($table[$i]));
+							$tempResults[$table[$i]][$field[$i]] = $row[$i];
 						}
+						array_push($result,$tempResults);
+					}
 				}
-				$this->_result->closeCursor();
+				else
+				{
+					$numOfFields =$this->_result->columnCount();
+					for ($i = 0; $i < $numOfFields; ++$i)
+					{
+						$columnData = $this->_result->getColumnMeta($i);
+						array_push($field,$columnData['name']);
+					}
+					while ($row = $this->_result->fetch(PDO::FETCH_BOTH))
+					{
+						for ($i = 0;$i < $numOfFields; ++$i)
+						{
+							$tempResults[$field[$i]] = $row[$i];
+						}
+						array_push($result,$tempResults);
+					}
+				}
 			}
+			$this->_result->closeCursor();
 			$this->clear();
 			return($result);
 		}

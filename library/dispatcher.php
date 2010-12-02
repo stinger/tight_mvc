@@ -93,7 +93,6 @@ function call_hook()
 	}
 	else
 	{
-		$controller = $default['controller'];
 		$url = route_url($url);
 		$urlArray = array();
 		$urlArray = explode("/",$url);

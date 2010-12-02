@@ -98,7 +98,6 @@ function call_hook()
 		$urlArray = array();
 		$urlArray = explode("/",$url);
 		$module = $urlArray[0];
-		$controller = NULL;
 		if ((strtolower($module) != $default['module']) && (!is_dir(APPLICATION_BASE . DIRECTORY_SEPARATOR . 'application' . DIRECTORY_SEPARATOR. $module)))
 		{
 			$module = NULL;
@@ -112,7 +111,7 @@ function call_hook()
 			$controller = $urlArray[0];
 			array_shift($urlArray);
 		}
-		if (empty($controller))
+		else
 		{
 			$controller = $default['controller'];
 		}

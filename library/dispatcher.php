@@ -98,6 +98,7 @@ function call_hook()
 		$urlArray = array();
 		$urlArray = explode("/",$url);
 		$module = $urlArray[0];
+		$controller = NULL;
 		if ((strtolower($module) != $default['module']) && (!is_dir(APPLICATION_BASE . DIRECTORY_SEPARATOR . 'application' . DIRECTORY_SEPARATOR. $module)))
 		{
 			$module = NULL;
@@ -106,9 +107,11 @@ function call_hook()
 		{
 			array_shift($urlArray);
 		}
-
-		$controller = $urlArray[0];
-		array_shift($urlArray);
+		if (!empty($urlArray[0]))
+		{
+			$controller = $urlArray[0];
+			array_shift($urlArray);
+		}
 		if (empty($controller))
 		{
 			$controller = $default['controller'];
@@ -121,7 +124,7 @@ function call_hook()
 		}
 		else
 		{
-			$action = 'index'; // Default Action
+			$action = $default['action'];
 		}
 		$queryString = $urlArray;
 	}

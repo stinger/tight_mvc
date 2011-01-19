@@ -12,7 +12,7 @@ define('DB_HOST', 'localhost');
 define('DB_TYPE', 'mysql');
 
 // no trailing slash at the end!
-define('BASE_PATH','http://localhost');
+define('BASE_URL','http://localhost');
 define('PAGINATE_LIMIT', '5');
 
 // Facebook configuration

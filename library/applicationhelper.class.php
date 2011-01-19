@@ -15,13 +15,13 @@ class ApplicationHelper
 
 	function link($text, $path, $class = null)
 	{
+		$base = BASE_URL;
 		$path = str_replace(' ','-',$path);
 		if (CURRENT_MODULE)
 		{
-			$path = CURRENT_MODULE . '/' . $path;
+			$path = CURRENT_MODULE . "/{$path}";
 		}
-		$data = '<a href="'.BASE_PATH.'/'.$path.'" class="'.$class.'">'.$text.'</a>';
-		return $data;
+		return "<a href=\"{$base}/{$path}\" class=\"{$class}\">{$text}</a>";
 	}
 
 	function doctype($doctype = NULL)
@@ -70,14 +70,14 @@ class ApplicationHelper
 
 	function include_js($fileName)
 	{
-		$data = '<script src="'.BASE_PATH.'/js/'.$fileName.'.js"></script>';
-		return $data."\n";
+		$base = BASE_URL;
+		return "<script src=\"{$base}/js/{$fileName}.js\"></script>\n";
 	}
 
 	function include_css($fileName,$media='screen')
 	{
-		$data = '<link rel="stylesheet" href="'.BASE_PATH.'/css/'.$fileName.'.css" media="'.$media.'"/>';
-		return $data."\n";
+		$base = BASE_URL;
+		return "<link rel=\"stylesheet\" href="{$base}/css/{$fileName}.css\" media=\"{$media}\"/>\n";
 	}
 
 	function remove_accent($str)

@@ -22,7 +22,7 @@ function set_reporting()
 
 function deeply_stripslashes($value)
 {
-	$value = is_array($value) ? array_map('deep_stripslashes', $value) : stripslashes($value);
+	$value = is_array($value) ? array_map('deeply_stripslashes', $value) : stripslashes($value);
 	return $value;
 }
 

@@ -77,7 +77,7 @@ class ApplicationHelper
 	function include_css($fileName,$media='screen')
 	{
 		$base = BASE_URL;
-		return "<link rel=\"stylesheet\" href="{$base}/css/{$fileName}.css\" media=\"{$media}\"/>\n";
+		return "<link rel=\"stylesheet\" href=\"{$base}/css/{$fileName}.css\" media=\"{$media}\"/>\n";
 	}
 
 	function remove_accent($str)

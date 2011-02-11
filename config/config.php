@@ -4,6 +4,8 @@
 
 define('DEVELOPMENT_ENVIRONMENT', TRUE);
 define('STATIC_DIR_NAME','public');
+
+// no trailing slash at the end!
 define('BASE_URL','http://localhost');
 define('CDN_URL','http://localhost');
 
@@ -14,7 +16,6 @@ define('DB_PASSWORD', '');
 define('DB_HOST', 'localhost');
 define('DB_TYPE', 'mysql');
 
-// no trailing slash at the end!
 define('PAGINATE_LIMIT', '5');
 
 // Facebook configuration

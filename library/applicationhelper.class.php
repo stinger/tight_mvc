@@ -10,18 +10,45 @@ class ApplicationHelper
 
 	function sanitize($data)
 	{
-		return stripslashes(strip_tags($data));
+		return filter_var($data, FILTER_SANITIZE_STRING, FILTER_SANITIZE_SPECIAL_CHARS);
 	}
 
-	function link($text, $path, $class = null)
+	function link($text, $path, $class = null, $cdn = FALSE)
 	{
-		$base = BASE_URL;
+		$base = ($cdn === FALSE) ? BASE_URL : CDN_BASE_URL;
 		$path = str_replace(' ','-',$path);
-		if (CURRENT_MODULE)
+		if ((CURRENT_MODULE) && ($cdn === FALSE))
 		{
 			$path = CURRENT_MODULE . "/{$path}";
 		}
 		return "<a href=\"{$base}/{$path}\" class=\"{$class}\">{$text}</a>";
+	}
+
+	function csrf()
+	{
+		$csrf = CSRF;
+		return "<input type=\"hidden\" name=\"csrf\" value=\"{$csrf}\" />";
+	}
+
+	function csrf_head()
+	{
+		$csrf = CSRF;
+		return <<<END
+	<meta name="csrf-param" content="csrf"/>
+	<meta name="csrf-token" content="{$csrf}" />
+
+END;
+	}
+
+	function url_for($path='',$cdn=FALSE)
+	{
+		$base = ($cdn === FALSE) ? BASE_URL : CDN_BASE_URL;
+		$path = str_replace(' ','-',$path);
+		if ((CURRENT_MODULE) && ($cdn === FALSE))
+		{
+			$path = CURRENT_MODULE . "/{$path}";
+		}
+		return "{$base}/{$path}";
 	}
 
 	function doctype($doctype = NULL)
@@ -68,15 +95,15 @@ class ApplicationHelper
 		return $type."\n";
 	}
 
-	function include_js($fileName)
+	function include_js($fileName,$cdn=FALSE)
 	{
-		$base = BASE_URL;
+		$base = ($cdn === FALSE) ? BASE_URL : CDN_BASE_URL;
 		return "<script src=\"{$base}/js/{$fileName}.js\"></script>\n";
 	}
 
-	function include_css($fileName,$media='screen')
+	function include_css($fileName,$media='screen',$cdn=FALSE)
 	{
-		$base = BASE_URL;
+		$base = ($cdn === FALSE) ? BASE_URL : CDN_BASE_URL;
 		return "<link rel=\"stylesheet\" href=\"{$base}/css/{$fileName}.css\" media=\"{$media}\"/>\n";
 	}
 
@@ -90,5 +117,16 @@ class ApplicationHelper
 	function slug($str)
 	{
 		return strtolower(preg_replace(array('/[^a-zA-Z0-9 -]/', '/[ -]+/', '/^-|-$/'), array('', '-', ''), $this->remove_accent($str)));
+	}
+
+	function array_pluck($key, $input)
+	{
+		if (is_array($key) || !is_array($input)) return array();
+		$output = array();
+		foreach($input as $v)
+		{
+			if(array_key_exists($key, $v)) $output[]=$v[$key];
+		}
+		return $output;
 	}
 }

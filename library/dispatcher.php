@@ -146,7 +146,7 @@ function call_hook()
 		/* Error Generation Code Here */
 		$dispatch->render = 0;
 		$url = '/'.$url;
-		include_once (dirname(__FILE__).'/../public/404.php');
+		include_once (APPLICATION_BASE . DIRECTORY_SEPARATOR . STATIC_DIR_NAME . DIRECTORY_SEPARATOR . '404.php');
 	}
 }
 
@@ -179,12 +179,12 @@ function __autoload($className)
 		if (!preg_match('/Controller/',$className))
 		{
 			header("HTTP/1.0 500 Internal Server Error");
-			include_once (dirname(__FILE__).'/../public/500.php');
+			include_once (APPLICATION_BASE . DIRECTORY_SEPARATOR . STATIC_DIR_NAME . DIRECTORY_SEPARATOR . '500.php');
 		}
 		else
 		{
 			header("HTTP/1.0 404 Not Found");
-			include_once (dirname(__FILE__).'/../public/404.php');
+			include_once (APPLICATION_BASE . DIRECTORY_SEPARATOR . STATIC_DIR_NAME . DIRECTORY_SEPARATOR . '404.php');
 		}
 		exit();
 	}

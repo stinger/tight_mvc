@@ -2,7 +2,10 @@
 
 /** Configuration Variables **/
 
-define ('DEVELOPMENT_ENVIRONMENT', TRUE);
+define('DEVELOPMENT_ENVIRONMENT', TRUE);
+define('STATIC_DIR_NAME','public');
+define('BASE_URL','http://localhost');
+define('CDN_URL','http://localhost');
 
 // database setup, currently only MySQL is supported
 define('DB_NAME', '');
@@ -12,7 +15,6 @@ define('DB_HOST', 'localhost');
 define('DB_TYPE', 'mysql');
 
 // no trailing slash at the end!
-define('BASE_URL','http://localhost');
 define('PAGINATE_LIMIT', '5');
 
 // Facebook configuration

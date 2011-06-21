@@ -4,7 +4,7 @@
 
 function set_reporting()
 {
-	if (DEVELOPMENT_ENVIRONMENT == true)
+	if (DEVELOPMENT_ENVIRONMENT === TRUE)
 	{
 		error_reporting(E_ALL);
 		ini_set('display_errors','On');
@@ -144,7 +144,8 @@ function call_hook()
 	else
 	{
 		/* Error Generation Code Here */
-		$dispatch->render = 0;
+		header("HTTP/1.0 404 Not Found");
+		$dispatch->set_render(FALSE);
 		$url = '/'.$url;
 		include_once (APPLICATION_BASE . DIRECTORY_SEPARATOR . STATIC_DIR_NAME . DIRECTORY_SEPARATOR . '404.php');
 	}

@@ -49,7 +49,7 @@ class Template {
 
 	/** Display Template **/
 	
-	function render($disableLayout = 0, $controller = NULL, $action = NULL)
+	function render($disableLayout = FALSE, $controller = NULL, $action = NULL)
 	{
 		extract($this->variables);
 		$controller = ($controller !== NULL) ? $controller : $this->_controller;
@@ -59,7 +59,7 @@ class Template {
 			$this->content = $this->get_view (MODULE_PATH . 'views' . DIRECTORY_SEPARATOR . $controller . DIRECTORY_SEPARATOR . $action . '.php');
 		}
 
-		if ($disableLayout == 0)
+		if ($disableLayout === FALSE)
 		{
 			if ($this->_layout === NULL)
 			{

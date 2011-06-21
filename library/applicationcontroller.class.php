@@ -36,8 +36,8 @@ class ApplicationController
 		}
 
 
-		$this->render = 1;
-		$this->disableLayout = 0;
+		$this->render = TRUE;
+		$this->disableLayout = FALSE;
 	}
 
 	function set_render($render)
@@ -47,7 +47,7 @@ class ApplicationController
 
 	function disable_layout()
 	{
-		$this->disableLayout = 1;
+		$this->disableLayout = TRUE;
 		return $this;
 	}
 
@@ -66,7 +66,7 @@ class ApplicationController
 	function render($controller, $action)
 	{
 		$this->_template->render($this->disableLayout,$controller, $action);
-		$this->set_render(0);
+		$this->set_render(FALSE);
 		return $this;
 	}
 

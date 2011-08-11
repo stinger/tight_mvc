@@ -18,22 +18,6 @@ function set_reporting()
 	}
 }
 
-/** Check for Magic Quotes and remove them **/
-
-function deeply_stripslashes($value)
-{
-	$value = is_array($value) ? array_map('deeply_stripslashes', $value) : stripslashes($value);
-	return $value;
-}
-
-function remove_magic_quotes() {
-if ( get_magic_quotes_gpc() ) {
-	$_GET    = deeply_stripslashes($_GET   );
-	$_POST   = deeply_stripslashes($_POST  );
-	$_COOKIE = deeply_stripslashes($_COOKIE);
-}
-}
-
 /** Check register globals and remove them **/
 
 function unregister_globals() {
@@ -239,11 +223,7 @@ get_module();
 gzip_output() || ob_start("ob_gzhandler");
 $cache = new Cache();
 $inflect = new Inflection();
-
 set_reporting();
-remove_magic_quotes();
 unregister_globals();
 call_hook();
-
-
 ?>
